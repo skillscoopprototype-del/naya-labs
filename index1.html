@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAYA LABS | THE BACKBENCHER PROTOCOL</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+
+    <style>
+        :root {
+            --neon-cyan: #00f3ff;
+            --neon-dim: rgba(0, 243, 255, 0.2);
+            --bg-dark: #020205;
+            --text-main: #ffffff;
+            --neon-pink: #ff00c1;
+            --neon-yellow: #ffd700;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .logo, .btn { font-family: 'Orbitron', sans-serif; text-transform: uppercase; }
+
+        /* --- BACKGROUND --- */
+        #cyber-net {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at center, #0a0a12 0%, #000 100%);
+        }
+
+        /* --- NAV --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.95), transparent);
+        }
+
+        .nav-left { display: flex; align-items: center; }
+        .logo { font-size: 1.8rem; font-weight: 900; color: var(--neon-cyan); text-shadow: 0 0 10px var(--neon-cyan); letter-spacing: 1px; }
+        .backbencher-badge { font-family: 'Courier Prime', monospace; font-size: 0.7rem; color: #888; border: 1px solid #333; padding: 4px 8px; margin-left: 10px; text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; }
+        .nav-links-container { display: flex; gap: 2rem; }
+        .nav-link { color: #fff; text-decoration: none; font-weight: 600; font-size: 1rem; transition: 0.3s; }
+        .nav-link:hover { color: var(--neon-cyan); text-shadow: 0 0 8px var(--neon-cyan); }
+
+        /* --- HERO (GLITCH) --- */
+        .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 6rem 1rem 2rem 1rem; }
+        .hero h1 { font-size: 5rem; line-height: 1; margin-bottom: 0.5rem; position: relative; color: white; }
+        .hero h1::before, .hero h1::after { content: "NAYA LABS"; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-dark); }
+        .hero h1::before { left: 2px; text-shadow: -2px 0 #ff00c1; clip: rect(44px, 450px, 56px, 0); animation: glitch-anim 5s infinite linear alternate-reverse; }
+        .hero h1::after { left: -2px; text-shadow: -2px 0 #00fff9; clip: rect(44px, 450px, 56px, 0); animation: glitch-anim2 5s infinite linear alternate-reverse; }
+        @keyframes glitch-anim { 0% { clip: rect(30px, 9999px, 10px, 0); } 5% { clip: rect(80px, 9999px, 5px, 0); } 100% { clip: rect(60px, 9999px, 90px, 0); } }
+        @keyframes glitch-anim2 { 0% { clip: rect(10px, 9999px, 80px, 0); } 5% { clip: rect(90px, 9999px, 20px, 0); } 100% { clip: rect(10px, 9999px, 40px, 0); } }
+        
+        .slogan-box { font-family: 'Courier Prime', monospace; color: var(--neon-cyan); font-size: 1rem; margin-bottom: 2rem; letter-spacing: 1px; border-bottom: 1px solid rgba(0, 243, 255, 0.3); padding-bottom: 5px; text-shadow: 0 0 5px var(--neon-cyan); max-width: 90%; }
+        .hero p { font-size: 1.4rem; max-width: 700px; color: #ccc; margin-bottom: 3rem; border-left: 3px solid var(--neon-cyan); padding-left: 1rem; }
+        
+        /* --- BUTTONS --- */
+        .btn { padding: 1rem 2rem; background: rgba(0, 243, 255, 0.05); color: var(--neon-cyan); border: 2px solid var(--neon-cyan); font-size: 1rem; font-weight: 700; text-decoration: none; position: relative; overflow: hidden; transition: 0.3s; cursor: pointer; display: inline-block; text-align: center; }
+        .btn:hover { color: #000; box-shadow: 0 0 20px var(--neon-cyan); background: var(--neon-cyan); }
+
+        /* --- SECTIONS --- */
+        .section { padding: 80px 5%; max-width: 1200px; margin: 0 auto; }
+        .section-title { font-size: 2.5rem; margin-bottom: 3rem; border-bottom: 2px solid var(--neon-dim); display: inline-block; padding-right: 2rem; }
+        .section-title span { color: var(--neon-cyan); }
+
+        /* --- GRID SYSTEM --- */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; align-items: stretch; }
+        
+        .holo-card { 
+            background: rgba(0, 10, 20, 0.6); 
+            border: 1px solid var(--neon-dim); 
+            padding: 2.5rem; 
+            position: relative; 
+            transition: 0.3s; 
+            backdrop-filter: blur(5px);
+            display: flex;
+            flex-direction: column;
+            height: 100%; 
+        }
+        .holo-card:hover { transform: translateY(-5px); box-shadow: 0 0 30px rgba(0, 243, 255, 0.15); border-color: var(--neon-cyan); }
+        .holo-card h3 { font-size: 1.5rem; margin-bottom: 1rem; }
+        .card-content { flex-grow: 1; }
+        .holo-card p { color: #aaa; line-height: 1.6; }
+
+        /* --- ABOUT --- */
+        .about-text { font-size: 1.1rem; line-height: 1.8; color: #ddd; }
+
+        /* ================================================= */
+        /* START: RESUME TOOL STYLES (NEW)                   */
+        /* ================================================= */
+        #tool-interface {
+            background: rgba(0, 10, 20, 0.85);
+            border: 1px solid var(--neon-cyan);
+            padding: 2rem;
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.1);
+            backdrop-filter: blur(10px);
+            display: flex;
+            gap: 2rem;
+            align-items: stretch;
+            border-left: 5px solid var(--neon-cyan);
+        }
+
+        .tool-col { flex: 1; display: flex; flex-direction: column; gap: 1.5rem; }
+
+        /* Neon Inputs */
+        .naya-textarea {
+            width: 100%;
+            height: 150px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--neon-dim);
+            color: var(--neon-cyan);
+            font-family: 'Courier Prime', monospace;
+            padding: 1rem;
+            resize: none;
+            font-size: 0.9rem;
+        }
+        .naya-textarea:focus { border-color: var(--neon-cyan); outline: none; box-shadow: 0 0 10px var(--neon-dim); }
+        .naya-textarea::placeholder { color: rgba(0, 243, 255, 0.3); }
+
+        .form-label-neon { display: block; color: var(--neon-cyan); margin-bottom: 0.5rem; font-family: 'Orbitron'; font-size: 0.9rem; letter-spacing: 1px; }
+
+        /* Drag & Drop Zone */
+        .upload-zone {
+            border: 2px dashed var(--neon-dim);
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+            background: rgba(0, 243, 255, 0.02);
+            position: relative;
+        }
+        .upload-zone:hover { border-color: var(--neon-cyan); background: rgba(0, 243, 255, 0.05); }
+        .upload-icon { font-size: 2rem; color: var(--neon-cyan); display: block; margin-bottom: 10px; }
+        .file-name { font-family: 'Courier Prime'; font-size: 0.8rem; color: #aaa; }
+
+        /* Results Area */
+        .result-box {
+            border: 1px solid var(--neon-dim);
+            height: 100%;
+            padding: 1.5rem;
+            position: relative;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        .score-display {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--neon-dim);
+            padding-bottom: 1rem;
+        }
+        .big-score { font-size: 4rem; font-weight: 900; color: var(--neon-cyan); text-shadow: 0 0 20px var(--neon-cyan); font-family: 'Orbitron'; line-height: 1; }
+        .score-label { font-family: 'Courier Prime'; letter-spacing: 2px; color: #888; font-size: 0.8rem; }
+
+        .missing-keywords-area { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1rem; }
+        .keyword-tag {
+            background: rgba(255, 0, 60, 0.15); /* Red tint for missing */
+            border: 1px solid rgba(255, 0, 60, 0.5);
+            color: #ff3366;
+            padding: 4px 8px;
+            font-family: 'Courier Prime';
+            font-size: 0.8rem;
+        }
+        /* ================================================= */
+
+        /* --- SERVICE SELECTOR --- */
+        .service-console {
+            background: rgba(0, 243, 255, 0.02);
+            border: 1px solid var(--neon-cyan);
+            padding: 3rem;
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            box-shadow: 0 0 40px rgba(0, 243, 255, 0.05);
+        }
+
+        .service-dropdown {
+            width: 100%;
+            padding: 1.5rem;
+            background: #020205;
+            color: white;
+            border: 1px solid var(--neon-dim);
+            font-family: 'Orbitron';
+            font-size: 1.2rem;
+            outline: none;
+            cursor: pointer;
+            margin-bottom: 2rem;
+            appearance: none;
+            text-align: center;
+            transition: 0.3s;
+        }
+        
+        .service-dropdown:focus { border-color: var(--neon-cyan); box-shadow: 0 0 15px rgba(0, 243, 255, 0.2); }
+
+        .price-display {
+            font-size: 4.5rem;
+            font-weight: 900;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 20px var(--neon-cyan);
+            margin-bottom: 2rem;
+            display: block;
+        }
+        
+        .price-label { font-family: 'Courier Prime'; color: #888; font-size: 0.9rem; letter-spacing: 2px; }
+
+        /* --- CAREERS --- */
+        .job-tag { background: rgba(0, 243, 255, 0.1); color: var(--neon-cyan); padding: 5px 10px; font-size: 0.8rem; border-radius: 4px; display: inline-block; margin-bottom: 1rem; font-family: 'Orbitron'; }
+
+        /* --- MODAL --- */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.85); backdrop-filter: blur(5px); }
+        .modal-content { background: #020205; margin: 5% auto; padding: 3rem; border: 1px solid var(--neon-cyan); width: 90%; max-width: 600px; box-shadow: 0 0 50px rgba(0, 243, 255, 0.2); position: relative; animation: modalFade 0.4s; }
+        @keyframes modalFade { from {opacity: 0; transform: translateY(-50px);} to {opacity: 1; transform: translateY(0);} }
+        .close-btn { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
+        .close-btn:hover { color: var(--neon-cyan); }
+
+        /* --- FORMS --- */
+        #contact-form-container { max-width: 600px; margin: 0 auto; background: rgba(0, 10, 20, 0.9); border: 1px solid var(--neon-cyan); padding: 3rem; box-shadow: 0 0 30px rgba(0, 243, 255, 0.1); }
+        .form-group { margin-bottom: 1.5rem; text-align: left; }
+        .form-label { display: block; color: var(--neon-cyan); margin-bottom: 0.5rem; font-family: 'Orbitron'; font-size: 0.9rem; }
+        .form-input { width: 100%; padding: 1rem; background: rgba(255,255,255,0.05); border: 1px solid var(--neon-dim); color: white; font-family: 'Rajdhani'; font-size: 1.1rem; }
+        .form-input:focus { border-color: var(--neon-cyan); outline: none; }
+        .caps-lock { text-transform: uppercase; }
+
+        /* --- FOOTER --- */
+        footer { border-top: 1px solid var(--neon-dim); padding: 3rem 1rem; text-align: center; background: #000; }
+        .footer-socials { display: flex; justify-content: center; gap: 2rem; margin-bottom: 2rem; }
+        .footer-socials a { color: var(--text-main); font-size: 1.8rem; transition: 0.3s; }
+        .footer-socials a:hover { color: var(--neon-cyan); text-shadow: 0 0 10px var(--neon-cyan); transform: translateY(-3px); }
+
+        /* --- MOBILE OPTIMIZATION --- */
+        @media (max-width: 768px) {
+            nav { flex-direction: column; padding: 1rem; }
+            .nav-left { margin-bottom: 1rem; flex-wrap: wrap; justify-content: center; }
+            .nav-links-container { gap: 1rem; flex-wrap: wrap; justify-content: center; }
+            .hero h1 { font-size: 3.5rem; }
+            .grid { grid-template-columns: 1fr; }
+            #contact-form-container { padding: 1.5rem; }
+            .btn { width: 100%; }
+            .modal-content { margin: 20% auto; padding: 1.5rem; }
+            .service-dropdown { font-size: 1rem; }
+            .price-display { font-size: 3.5rem; }
+            
+            /* Tool Mobile */
+            #tool-interface { flex-direction: column; padding: 1rem; }
+            .naya-textarea { height: 100px; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="cyber-net"></canvas>
+
+    <nav>
+        <div class="nav-left">
+            <div class="logo">NAYA LABS</div>
+            <div class="backbencher-badge">VERIFIED BACKBENCHER</div>
+        </div>
+        <div class="nav-links-container">
+            <a href="#about" class="nav-link">ABOUT</a>
+            <a href="#tool" class="nav-link" style="color:var(--neon-cyan)">FREE TOOL</a> <a href="#pricing" class="nav-link">SERVICES</a>
+            <a href="#careers" class="nav-link">CAREERS</a>
+            <a href="#contact" class="nav-link">ACCESS</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>NAYA LABS</h1>
+        <div class="slogan-box">// TRANSMISSION: FROM A BACKBENCHER, TO ALL THOSE WHO DREAM THE IMPOSSIBLE.</div>
+        <p>WE DON'T JUST OPTIMIZE RESUMES. WE SUPPLY THE <span style="color:var(--neon-cyan); font-weight:bold;">DATA</span> TO FILL THEM.</p>
+        <div style="display:flex; gap:1rem; width: 100%; justify-content: center; flex-wrap: wrap;">
+            <a href="#tool" class="btn" style="width: auto;">RUN FREE DIAGNOSTIC</a>
+            <a href="#pricing" class="btn" style="width: auto; border-color:white; color:white;">INITIALIZE PROTOCOL</a>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <h2 class="section-title">ABOUT <span>NAYA LABS</span></h2>
+        <div class="grid" style="align-items: stretch;">
+            <div class="holo-card">
+                <div class="card-content">
+                    <h3>THE ORIGIN STORY</h3>
+                    <div class="about-text">
+                        <p>Naya Labs began with a like-minded duo and a group of best friends who realized that success isn't just about hard work—it's about the right strategy. We started as a <strong>Data-as-a-Service (DaaS)</strong> venture, providing career target data to job seekers.</p>
+                        <br>
+                        <p>But while analyzing the numbers, we found a critical gap: our users had the right data to <em>find jobs</em>, but lacked the personal branding to <em>land them</em>. That insight drove our transformation into Naya Labs. Today, we combine our data-driven roots with creative storytelling, having successfully optimized <strong>208 resumes</strong>, revamped <strong>96 LinkedIn profiles</strong>, and deployed <strong>50+ portfolio websites</strong>. We don't just find opportunities; we make you ready for them.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="holo-card">
+                <div class="card-content">
+                    <h3>FLAT HIERARCHY PROTOCOL</h3>
+                    <div class="about-text">
+                        <p>We rejected the corporate ladder. Naya Labs operates on a <strong>Flat Grid Structure</strong>. Led by our CEO, the flow of ideas is bidirectional.</p>
+                        <br>
+                        <p>Whether you are a Lead, a Trainee, or a Campus Ambassador, your input goes directly to the top. We don't just build careers for others; we build leaders internally.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tool" class="section">
+        <h2 class="section-title">SYSTEM <span>DIAGNOSTICS</span></h2>
+        
+        <div id="tool-interface">
+            <div class="tool-col">
+                <div>
+                    <label class="form-label-neon">// 1. TARGET PARAMETERS (PASTE JD)</label>
+                    <textarea id="jobDesc" class="naya-textarea" placeholder="Paste the Job Description (JD) here to set the target parameters..."></textarea>
+                </div>
+
+                <div>
+                    <label class="form-label-neon">// 2. USER DATA (UPLOAD PDF)</label>
+                    <input type="file" id="resumeFile" accept=".pdf" style="display:none" onchange="handleFileUpload()">
+                    
+                    <div class="upload-zone" onclick="document.getElementById('resumeFile').click()">
+                        <i class="fas fa-file-upload upload-icon"></i>
+                        <span id="fileName" class="file-name">CLICK TO INITIALIZE UPLOAD SEQUENCE (PDF ONLY)</span>
+                    </div>
+                    <textarea id="resumeText" style="display:none;"></textarea>
+                </div>
+
+                <button onclick="scanResume()" class="btn" style="width:100%;">RUN DIAGNOSTIC CHECK</button>
+                <p style="font-family:'Courier Prime'; font-size:0.7rem; color:#555; text-align:center; margin-top:10px;">
+                    // PRIVACY PROTOCOL: ACTIVE. DATA REMAINS LOCAL IN BROWSER.
+                </p>
+            </div>
+
+            <div class="tool-col">
+                <div id="resultsArea" class="result-box" style="display:none;">
+                    <div class="score-display">
+                        <div class="big-score"><span id="matchScore">0</span>%</div>
+                        <span class="score-label">COMPATIBILITY RATING</span>
+                    </div>
+
+                    <h3 id="resultTitle" style="color:white; font-family:'Orbitron'; margin-bottom:10px;">ANALYZING...</h3>
+                    <p id="resultBody" style="color:#aaa; font-size:0.9rem; line-height:1.6; margin-bottom:1rem;"></p>
+                    
+                    <div id="keywordContainer" style="display:none;">
+                        <label class="form-label-neon" style="color:#ff3366;">// CRITICAL SKILLS/QUALS MISSING:</label>
+                        <div id="missingKeywords" class="missing-keywords-area"></div>
+                    </div>
+
+                    <div style="margin-top:auto; padding-top:20px;">
+                        <button onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" class="btn" style="font-size:0.8rem; width:100%; border-color:#ff00c1; color:#ff00c1;">
+                            BRIDGE THE GAP (EXPERT HELP)
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="toolPlaceholder" class="result-box" style="display:flex; align-items:center; justify-content:center; text-align:center;">
+                    <p style="color:#555; font-family:'Courier Prime';">
+                        // AWAITING INPUT DATA...<br><br>
+                        [ SYSTEM READY ]
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="pricing" class="section">
+        <h2 class="section-title">SELECT <span>SERVICE</span></h2>
+
+        <div class="service-console">
+            <p class="price-label">CHOOSE PROTOCOL:</p>
+            
+            <select id="service-selector" class="service-dropdown" onchange="updatePrice()">
+                <option value="Resume Audit (ATS Check)" data-price="299">ATS RESUME AUDIT</option>
+                <option value="Grammar & Syntax Fix" data-price="199">GRAMMAR & SYNTAX FIX</option>
+                <option value="Full Resume Rewrite" data-price="999">FULL RESUME REWRITE</option>
+                <option value="LinkedIn Optimization" data-price="799">LINKEDIN OPTIMIZATION</option>
+                <option value="Cover Letter Drafting" data-price="499">COVER LETTER DRAFTING</option>
+                <option value="Personal Portfolio Website" data-price="2499">PERSONAL PORTFOLIO SITE</option>
+                <option value="Interview Prep (Mock Call)" data-price="699">INTERVIEW & APTITUDE QUESTIONS BUNDLE</option>
+                <option value="All-In-One Bundle" data-price="3999">ALL-IN-ONE BUNDLE</option>
+            </select>
+
+            <p class="price-label">RESOURCE COST:</p>
+            <span class="price-display">₹<span id="price-val">299</span></span>
+
+            <button onclick="deploySelected()" id="deploy-btn" class="btn" style="width:100%;">DEPLOY AUDIT</button>
+        </div>
+    </section>
+
+    <section id="careers" class="section">
+        <h2 class="section-title">JOIN THE <span>TEAM</span></h2>
+        <div class="grid">
+            <div class="holo-card">
+                <div class="card-content">
+                    <span class="job-tag">REMOTE / PART-TIME</span>
+                    <h3>CAMPUS AMBASSADOR</h3>
+                    <p>Be the voice of Naya Labs on your campus. Help students get hired.</p>
+                </div>
+                <button onclick="openCareerModal('Campus Ambassador')" class="btn" style="margin-top:15px; padding: 0.5rem 1rem;">APPLY NOW</button>
+            </div>
+            <div class="holo-card">
+                <div class="card-content">
+                    <span class="job-tag">REMOTE / INTERN</span>
+                    <h3>Profile Strategy Intern</h3>
+                    <p>Have a knack for grammar and formatting? Help us engineer the perfect resumes for our clients.</p>
+                </div>
+                <button onclick="openCareerModal('Profile Strategy Intern')" class="btn" style="margin-top:15px; padding: 0.5rem 1rem;">APPLY NOW</button>
+            </div>
+            <div class="holo-card">
+                <div class="card-content">
+                    <span class="job-tag">OPEN POOL</span>
+                    <h3>FUTURE OPERATIVE</h3>
+                    <p>Don't see a role? We are always looking for coders, designers, and rebels. Send us your data.</p>
+                </div>
+                <button onclick="openCareerModal('Future Operative')" class="btn" style="margin-top:15px; padding: 0.5rem 1rem;">CONNECT</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <h2 class="section-title" style="text-align: center; display:block;">FINALIZE <span>TRANSMISSION</span></h2>
+        
+        <form id="submit-form" class="contact-form">
+            <div id="contact-form-container">
+                <input type="hidden" name="sheetName" value="Data">
+                
+                <div class="form-group">
+                    <label class="form-label">IDENTIFIER (FULL NAME)</label>
+                    <input type="text" name="name" class="form-input" required placeholder="Ex: Rahul Kumar">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">COMMS FREQUENCY (PHONE)</label>
+                    <input type="tel" name="phone" class="form-input" required placeholder="+91 98765...">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">DIGITAL MAILBOX (EMAIL)</label>
+                    <input type="email" name="email" class="form-input" required placeholder="name@example.com">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">SELECTED MODULE</label>
+                    <input type="text" id="tier-input" name="module" class="form-input" readonly value="Resume Audit (ATS Check)">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">REFERRED BY AMBASSADOR? (ENTER CODE)</label>
+                    <input type="text" name="ambassador" class="form-input caps-lock" placeholder="AMBASSADOR CODE/NAME" oninput="this.value = this.value.toUpperCase()">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">PAYMENT PROOF (UTR / TRANSACTION ID)</label>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" name="utr" class="form-input" placeholder="Ex: 3245XXXXXXXX" required style="flex:1;">
+                        <button type="button" class="btn" style="padding: 0.5rem 1rem; font-size: 0.8rem; background: var(--neon-cyan); color: #000;" onclick="prePayTrigger()">SCAN QR TO PAY</button>
+                    </div>
+                    <p style="font-size:0.7rem; color:#888; margin-top:5px;">*Click 'SCAN QR', complete payment, and paste the 12-digit UTR here.</p>
+                </div>
+
+                <button type="submit" class="btn" style="width:100%; text-align:center;">FINALIZE TRANSMISSION</button>
+                <p id="form-status" style="margin-top:10px; color:var(--neon-cyan); text-align:center; font-family:'Courier Prime';"></p>
+            </div>
+        </form>
+    </section>
+
+    <div id="payment-modal" class="modal">
+        <div class="modal-content" style="text-align: center;">
+            <span class="close-btn" onclick="closePaymentModal()">&times;</span>
+            <h2 style="color:var(--neon-cyan); font-family:'Orbitron'; margin-bottom:10px;">SECURE TRANSACTION</h2>
+            
+            <p id="payment-desc" style="color:white; margin-bottom:20px; font-size:1.1rem;"></p>
+            
+            <div id="qr-container" style="background: white; padding: 15px; display: inline-block; border-radius: 10px; margin-bottom: 20px;">
+                <img id="upi-qr" src="" alt="Scan to Pay" style="width: 200px; height: 200px;">
+            </div>
+            
+            <p style="color:#aaa; font-size:0.9rem; margin-bottom:20px;">Scan with any UPI App (GPay, PhonePe, Paytm)</p>
+
+            <a id="upi-deep-link" href="#" class="btn" style="width:100%; display:none; background: #00ff00; color: black; border-color: #00ff00;">TAP TO PAY ON MOBILE</a>
+        </div>
+    </div>
+
+    <div id="career-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeCareerModal()">&times;</span>
+            <h2 style="color:var(--neon-cyan); font-family:'Orbitron'; text-align:center; margin-bottom:20px;">CAREER UPLINK</h2>
+            
+            <form id="career-form">
+                <input type="hidden" name="sheetName" value="Careers">
+                <div class="form-group">
+                    <label class="form-label">CANDIDATE NAME</label>
+                    <input type="text" name="name" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">PHONE</label>
+                    <input type="tel" name="phone" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">EMAIL</label>
+                    <input type="email" name="email" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">ROLE APPLIED FOR</label>
+                    <input type="text" id="career-role-input" name="module" class="form-input" readonly>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">RESUME LINK (DRIVE/LINKEDIN)</label>
+                    <input type="url" name="ambassador" class="form-input" placeholder="Paste link here..." required>
+                    <p style="font-size:0.7rem; color:#888; margin-top:5px;">*Please ensure link sharing is enabled.</p>
+                </div>
+                
+                <button type="submit" class="btn" style="width:100%;">TRANSMIT APPLICATION</button>
+                <p id="career-status" style="margin-top:10px; color:var(--neon-cyan); text-align:center; font-family:'Courier Prime';"></p>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-socials">
+            <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="mailto:contact@nayalabs.com"><i class="fas fa-envelope"></i></a>
+        </div>
+        <div class="logo" style="margin-bottom:20px;">NAYA LABS</div>
+        <p style="color:#555; font-family: 'Courier Prime', monospace;">// BUILT BY A BACKBENCHER. FOR THE IMPOSSIBLE DREAMERS.</p>
+    </footer>
+
+    <script>
+        // --- 1. CONFIGURATION ---
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzsaukwQ7TtvtV_2fezYU8F-UuVlGB3SHHHG0iHQdbGmIVK-BPjMGDz0kzluBSmu2G_/exec";
+        
+        // --- PAYMENT CONFIGURATION (SECURE) ---
+        // We use 'atob' to decode the ID so it's not visible in plain text source code
+        const SECURE_ID = "bmFnYWl5YW5rYXJ1cHB1c2FteUBva3NiaQ=="; 
+        const UPI_ID = atob(SECURE_ID); // This decodes it back to your real ID instantly
+        const PAYEE_NAME = "Naya Labs"; 
+
+        // --- 2. SERVICE DROPDOWN LOGIC ---
+        function updatePrice() {
+            const selector = document.getElementById('service-selector');
+            const selectedOption = selector.options[selector.selectedIndex];
+            const price = selectedOption.getAttribute('data-price');
+            const serviceName = selectedOption.value;
+
+            document.getElementById('price-val').innerText = price;
+            
+            let cleanName = serviceName.split('(')[0].toUpperCase().trim();
+            document.getElementById('deploy-btn').innerText = "DEPLOY " + cleanName;
+        }
+
+        function deploySelected() {
+            const selector = document.getElementById('service-selector');
+            const serviceName = selector.value;
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+            
+            const input = document.getElementById('tier-input');
+            input.value = serviceName;
+            input.style.borderColor = "#fff";
+            setTimeout(() => { input.style.borderColor = "var(--neon-dim)"; }, 300);
+        }
+
+        // --- 3. MODAL LOGIC ---
+        const careerModal = document.getElementById("career-modal");
+        const paymentModal = document.getElementById("payment-modal");
+
+        function openCareerModal(role) {
+            careerModal.style.display = "block";
+            document.getElementById("career-role-input").value = role;
+        }
+
+        function closeCareerModal() { careerModal.style.display = "none"; }
+        function closePaymentModal() { paymentModal.style.display = "none"; }
+
+        window.onclick = function(event) {
+            if (event.target == careerModal) careerModal.style.display = "none";
+            if (event.target == paymentModal) paymentModal.style.display = "none";
+        }
+
+        // --- 4. PAYMENT LOGIC (Pre-Submission) ---
+        function prePayTrigger() {
+            const serviceName = document.getElementById('tier-input').value;
+            triggerPayment(serviceName);
+        }
+
+        function triggerPayment(serviceName) {
+            // Find price based on service name
+            const selector = document.getElementById('service-selector');
+            let price = "0";
+            
+            // Match current input service to price list
+            for(let i=0; i<selector.options.length; i++) {
+                if(selector.options[i].value === serviceName) {
+                    price = selector.options[i].getAttribute('data-price');
+                    break;
+                }
+            }
+            if(price === "0") price = "299"; // Default fallback
+
+            const note = "Payment for " + serviceName;
+            const upiLink = `upi://pay?pa=${UPI_ID}&pn=${encodeURIComponent(PAYEE_NAME)}&am=${price}&tn=${encodeURIComponent(note)}&cu=INR`;
+            
+            // Update Modal
+            document.getElementById('payment-desc').innerText = `${serviceName} - ₹${price}`;
+            document.getElementById('upi-qr').src = `https://quickchart.io/qr?text=${encodeURIComponent(upiLink)}&size=200`;
+            
+            const deepLinkBtn = document.getElementById('upi-deep-link');
+            deepLinkBtn.href = upiLink;
+
+            if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+                deepLinkBtn.style.display = "inline-block";
+            } else {
+                deepLinkBtn.style.display = "none";
+            }
+
+            paymentModal.style.display = "block";
+        }
+
+        // --- 5. DATA TRANSMISSION ---
+        const form = document.forms['submit-form'];
+        const statusMsg = document.getElementById('form-status');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            statusMsg.innerText = "// TRANSMITTING DATA...";
+            
+            fetch(SCRIPT_URL, { method: 'POST', body: new FormData(form)})
+                .then(response => {
+                    statusMsg.innerText = "// SUCCESS: DATA SECURED & INVOICE QUEUED.";
+                    form.reset();
+                })
+                .catch(error => { statusMsg.innerText = "// ERROR: SIGNAL LOST."; });
+        });
+
+        const careerForm = document.getElementById('career-form');
+        const careerStatus = document.getElementById('career-status');
+
+        careerForm.addEventListener('submit', e => {
+            e.preventDefault();
+            careerStatus.innerText = "// UPLOADING PROFILE...";
+            fetch(SCRIPT_URL, { method: 'POST', body: new FormData(careerForm)})
+                .then(response => {
+                    careerStatus.innerText = "// SUCCESS: APPLICATION RECEIVED.";
+                    setTimeout(() => { closeCareerModal(); careerForm.reset(); careerStatus.innerText=""; }, 2000);
+                })
+                .catch(error => { careerStatus.innerText = "// ERROR: UPLOAD FAILED."; });
+        });
+
+        // --- 6. BACKGROUND ANIMATION ---
+        const canvas = document.getElementById('cyber-net');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        let particlesArray;
+        let mouse = { x: null, y: null, radius: (canvas.height/80) * (canvas.width/80) }
+        window.addEventListener('mousemove', (event) => { mouse.x = event.x; mouse.y = event.y; });
+        class Particle {
+            constructor(x, y, directionX, directionY, size, color) {
+                this.x = x; this.y = y; this.directionX = directionX; this.directionY = directionY; this.size = size; this.color = color;
+            }
+            draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false); ctx.fillStyle = '#00f3ff'; ctx.fill(); }
+            update() {
+                if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
+                if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
+                let dx = mouse.x - this.x; let dy = mouse.y - this.y; let distance = Math.sqrt(dx*dx + dy*dy);
+                if (distance < mouse.radius + this.size){
+                    if (mouse.x < this.x && this.x < canvas.width - this.size * 10) this.x += 2;
+                    if (mouse.x > this.x && this.x > this.size * 10) this.x -= 2;
+                    if (mouse.y < this.y && this.y < canvas.height - this.size * 10) this.y += 2;
+                    if (mouse.y > this.y && this.y > this.size * 10) this.y -= 2;
+                }
+                this.x += this.directionX; this.y += this.directionY; this.draw();
+            }
+        }
+        function init() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / 9000;
+            for (let i = 0; i < numberOfParticles; i++) {
+                let size = (Math.random() * 2) + 1;
+                let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+                let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+                let directionX = (Math.random() * 2) - 1;
+                let directionY = (Math.random() * 2) - 1;
+                particlesArray.push(new Particle(x, y, directionX, directionY, size, '#00f3ff'));
+            }
+        }
+        function animate() {
+            requestAnimationFrame(animate); ctx.clearRect(0,0,innerWidth, innerHeight);
+            for (let i = 0; i < particlesArray.length; i++) particlesArray[i].update();
+            connect();
+        }
+        function connect() {
+            let opacityValue = 1;
+            for (let a = 0; a < particlesArray.length; a++) {
+                for (let b = a; b < particlesArray.length; b++) {
+                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                    if (distance < (canvas.width/7) * (canvas.height/7)) {
+                        opacityValue = 1 - (distance/20000); ctx.strokeStyle = 'rgba(0, 243, 255,' + opacityValue + ')'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(particlesArray[a].x, particlesArray[a].y); ctx.lineTo(particlesArray[b].x, particlesArray[b].y); ctx.stroke();
+                    }
+                }
+            }
+        }
+        window.addEventListener('resize', () => { canvas.width = innerWidth; canvas.height = innerHeight; mouse.radius = ((canvas.height/80) * (canvas.height/80)); init(); });
+        init(); animate();
+
+        // ============================================
+        // START: SMART RESUME TOOL LOGIC (KNOWLEDGE BASE)
+        // ============================================
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+
+        async function handleFileUpload() {
+            const fileInput = document.getElementById('resumeFile');
+            const file = fileInput.files[0];
+            const uiText = document.getElementById('fileName');
+            const zone = document.querySelector('.upload-zone');
+
+            if (file) {
+                uiText.innerText = "// READING: " + file.name + "...";
+                zone.style.borderColor = "var(--neon-cyan)";
+                try {
+                    const text = await extractTextFromPDF(file);
+                    document.getElementById('resumeText').value = text;
+                    uiText.innerText = "// UPLOAD COMPLETE: " + file.name;
+                    uiText.style.color = "var(--neon-cyan)";
+                } catch (error) {
+                    console.error(error);
+                    uiText.innerText = "// ERROR: CORRUPT FILE.";
+                    uiText.style.color = "red";
+                }
+            }
+        }
+
+        function extractTextFromPDF(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = async function () {
+                    const typedarray = new Uint8Array(this.result);
+                    try {
+                        const pdf = await pdfjsLib.getDocument(typedarray).promise;
+                        let fullText = "";
+                        for (let i = 1; i <= pdf.numPages; i++) {
+                            const page = await pdf.getPage(i);
+                            const textContent = await page.getTextContent();
+                            fullText += textContent.items.map(item => item.str).join(" ") + " ";
+                        }
+                        resolve(fullText);
+                    } catch (e) { reject(e); }
+                };
+                reader.readAsArrayBuffer(file);
+            });
+        }
+
+        // --- THE BRAIN: KNOWLEDGE BASE DICTIONARY ---
+        const KNOWLEDGE_BASE = {
+            // Hard Skills & Tools (Tech, Business, Operations)
+            skills: [
+                "python", "java", "c++", "c", "c#", ".net", "html", "css", "javascript", "react", "node.js", 
+                "angular", "vue.js", "php", "ruby", "swift", "kotlin", "dart", "flutter", "typescript", "go", "rust",
+                "sql", "mysql", "postgresql", "mongodb", "oracle", "redis", "firebase", "cassandra", "dynamodb",
+                "aws", "azure", "gcp", "docker", "kubernetes", "jenkins", "terraform", "ansible", "linux", "unix",
+                "git", "github", "gitlab", "bitbucket", "jira", "confluence", "trello", "asana", "slack",
+                "machine learning", "deep learning", "nlp", "computer vision", "tensorflow", "pytorch", "keras",
+                "scikit-learn", "pandas", "numpy", "matplotlib", "seaborn", "tableau", "power bi", "looker", "excel",
+                "statistics", "probability", "calculus", "linear algebra", "algorithms", "data structures",
+                "seo", "sem", "google analytics", "facebook ads", "google ads", "content marketing", "copywriting",
+                "social media marketing", "email marketing", "hubspot", "salesforce", "crm", "shopify", "wordpress",
+                "project management", "agile", "scrum", "kanban", "waterfall", "six sigma", "lean", "pmp", "prince2",
+                "supply chain", "logistics", "procurement", "inventory management", "sap", "erp", "oracle scm",
+                "finance", "accounting", "budgeting", "forecasting", "auditing", "taxation", "financial modeling",
+                "adobe photoshop", "adobe illustrator", "adobe indesign", "adobe xd", "figma", "sketch", "invision",
+                "autocad", "solidworks", "catia", "ansys", "matlab", "simulink", "labview", "revit", "civil 3d",
+                "communication", "leadership", "teamwork", "problem solving", "critical thinking", "negotiation",
+                "time management", "adaptability", "creativity", "emotional intelligence", "public speaking",
+                "customer service", "sales", "marketing", "operations", "strategy", "consulting", "research",
+                "writing", "editing", "proofreading", "translation", "teaching", "mentoring", "coaching"
+            ],
+            // Education & Certifications
+            education: [
+                "b.tech", "b.e", "m.tech", "m.e", "bca", "mca", "bsc", "msc", "bba", "mba", "b.com", "m.com",
+                "ba", "ma", "phd", "doctorate", "diploma", "certification", "undergraduate", "graduate", "postgraduate",
+                "cfa", "cpa", "acca", "ca", "cs", "cma", "pmp", "aws certified", "google certified", "microsoft certified"
+            ]
+        };
+
+        function scanResume() {
+            const jobDesc = document.getElementById('jobDesc').value.toLowerCase();
+            const resume = document.getElementById('resumeText').value.toLowerCase();
+            
+            if(!jobDesc || !resume) {
+                alert("ERROR: INPUT DATA MISSING.");
+                return;
+            }
+
+            // 1. CLEAN TEXT (Keep only letters, numbers, +, #, .)
+            const cleanText = (text) => text.replace(/[^\w\s\+\.#]/g, ' ').replace(/\s+/g, ' ');
+            const jdClean = cleanText(jobDesc);
+
+            // 2. EXTRACT TARGETS (STRICT WHITELIST MODE)
+            // We ONLY look for words that exist in our KNOWLEDGE_BASE. 
+            // No guessing. No capitalizing logic.
+            let targets = new Set();
+
+            KNOWLEDGE_BASE.skills.forEach(skill => {
+                // Regex ensures we match whole words (e.g. "C" doesn't match "Communication")
+                // Escape special chars like C++
+                const safeSkill = skill.replace("+", "\\+").replace(".", "\\.");
+                const regex = new RegExp(`\\b${safeSkill}\\b`, 'i'); // 'i' for case-insensitive
+                if(regex.test(jdClean)) {
+                    targets.add(skill); // Add the skill as it appears in DB
+                }
+            });
+            
+            KNOWLEDGE_BASE.education.forEach(edu => {
+                const safeEdu = edu.replace(".", "\\.");
+                const regex = new RegExp(`\\b${safeEdu}\\b`, 'i');
+                if(regex.test(jdClean)) {
+                    targets.add(edu);
+                }
+            });
+
+            // 3. SCORING LOGIC
+            const targetArray = Array.from(targets);
+            let matchCount = 0;
+            let missing = [];
+
+            if(targetArray.length === 0) {
+                // If JD contains NO known skills, we can't score it accurately.
+                alert("DIAGNOSTIC ALERT: The Job Description text provided does not contain recognizable technical skills or qualifications from our database. Please ensure you pasted the 'Requirements' section.");
+                return;
+            }
+
+            targetArray.forEach(target => {
+                // Check if target exists in resume
+                // We use the same regex logic for accuracy
+                const safeTarget = target.replace("+", "\\+").replace(".", "\\.");
+                const regex = new RegExp(`\\b${safeTarget}\\b`, 'i');
+                
+                if(regex.test(resume)) {
+                    matchCount++;
+                } else {
+                    missing.push(target);
+                }
+            });
+
+            const score = Math.round((matchCount / targetArray.length) * 100);
+
+            // 4. UI UPDATES
+            document.getElementById('toolPlaceholder').style.display = 'none';
+            document.getElementById('resultsArea').style.display = 'block';
+            document.getElementById('matchScore').innerText = score;
+
+            const title = document.getElementById('resultTitle');
+            const body = document.getElementById('resultBody');
+            const kwContainer = document.getElementById('keywordContainer');
+
+            if(score > 80) {
+                title.innerText = "SYSTEM STATUS: OPTIMAL";
+                title.style.color = "#00ff00";
+                body.innerText = "Your resume strongly matches the required technical skills and qualifications. Ready for deployment.";
+                kwContainer.style.display = "none";
+            } else {
+                // POSITIVE VALIDATION MESSAGE
+                title.innerText = "OPTIMIZATION OPPORTUNITY DETECTED";
+                title.style.color = "var(--neon-yellow)";
+                body.innerHTML = "<strong>Your profile shows potential.</strong><br><br>However, we detected a gap in specific <strong>Technical Skills</strong> or <strong>Qualifications</strong> required for this role. Adding these missing data points will significantly improve your ranking.";
+                kwContainer.style.display = "block";
+                
+                // Fill Keywords
+                const kwDiv = document.getElementById('missingKeywords');
+                kwDiv.innerHTML = "";
+                
+                // Capitalize first letter for display
+                missing.slice(0, 15).forEach(word => {
+                    let span = document.createElement('span');
+                    span.className = 'keyword-tag';
+                    
+                    // Helper to capitalize special words correctly (e.g. jQuery, pHp -> PHP)
+                    // For now simple Capitalize First Letter
+                    const displayWord = word.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+                    
+                    span.innerText = displayWord;
+                    kwDiv.appendChild(span);
+                });
+            }
+        }
+    </script>
+</body>
+</html>
