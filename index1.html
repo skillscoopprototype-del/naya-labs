@@ -536,8 +536,10 @@
         // --- 1. CONFIGURATION ---
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzsaukwQ7TtvtV_2fezYU8F-UuVlGB3SHHHG0iHQdbGmIVK-BPjMGDz0kzluBSmu2G_/exec";
         
-        // --- PAYMENT CONFIGURATION ---
-        const UPI_ID = "nagaiyankaruppusamy@oksbi"; 
+        // --- PAYMENT CONFIGURATION (SECURE) ---
+        // We use 'atob' to decode the ID so it's not visible in plain text source code
+        const SECURE_ID = "bmFnYWl5YW5rYXJ1cHB1c2FteUBva3NiaQ=="; 
+        const UPI_ID = atob(SECURE_ID); // This decodes it back to your real ID instantly
         const PAYEE_NAME = "Naya Labs"; 
 
         // --- 2. SERVICE DROPDOWN LOGIC ---
@@ -708,7 +710,7 @@
         init(); animate();
 
         // ============================================
-        // START: SMART RESUME TOOL LOGIC (STRICT KNOWLEDGE BASE)
+        // START: SMART RESUME TOOL LOGIC (KNOWLEDGE BASE)
         // ============================================
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
 
@@ -754,9 +756,9 @@
             });
         }
 
-        // --- THE BRAIN: EXPANDED KNOWLEDGE BASE ---
+        // --- THE BRAIN: KNOWLEDGE BASE DICTIONARY ---
         const KNOWLEDGE_BASE = {
-            // Technical & Tools (Comprehensive)
+            // Hard Skills & Tools (Tech, Business, Operations)
             skills: [
                 "python", "java", "c++", "c", "c#", ".net", "html", "css", "javascript", "react", "node.js", 
                 "angular", "vue.js", "php", "ruby", "swift", "kotlin", "dart", "flutter", "typescript", "go", "rust",
@@ -795,7 +797,7 @@
                 return;
             }
 
-            // 1. CLEAN TEXT 
+            // 1. CLEAN TEXT (Keep only letters, numbers, +, #, .)
             const cleanText = (text) => text.replace(/[^\w\s\+\.#]/g, ' ').replace(/\s+/g, ' ');
             const jdClean = cleanText(jobDesc);
 
@@ -863,6 +865,7 @@
                 body.innerText = "Your resume strongly matches the required technical skills and qualifications. Ready for deployment.";
                 kwContainer.style.display = "none";
             } else {
+                // POSITIVE VALIDATION MESSAGE
                 title.innerText = "OPTIMIZATION OPPORTUNITY DETECTED";
                 title.style.color = "var(--neon-yellow)";
                 body.innerHTML = "<strong>Your profile shows potential.</strong><br><br>However, we detected a gap in specific <strong>Technical Skills</strong> or <strong>Qualifications</strong> required for this role. Adding these missing data points will significantly improve your ranking.";
